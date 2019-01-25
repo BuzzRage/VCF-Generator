@@ -6,6 +6,10 @@
 # - Format thoses infos according to the RFC 6350 (which version ?)
 # - Export result !
 
+#TOCHECK:
+# - "Individual lines within vCard are delimited by the [RFC5322] line
+#   break, which is a CRLF sequence (U+000D followed by U+000A)."
+#   C'est \r\n ou \n\r ?
 
 # Required Properties
 RPROP = "BEGIN VERSION FN N END".split()
@@ -16,12 +20,29 @@ SPROP = "ADR BDAY CATEGORIES EMAIL NAME NICKNAME NOTE RELATED REV ROLE TEL TITLE
 
 vCard = ""
 
-vCard += "BEGIN:VCARD"
-vCard += "VERSION:3.0"
+vCard += "BEGIN:VCARD\n\r"
+vCard += "VERSION:3.0\n\r"
 
-# Insert content here
+print("VCARDS generator - Entrez vos informations: ")
+name 		= input("Nom: ")
+surname = input("Prenom: ")
+tel 		= input("Tel: ")
+email 	= input("Email: ")
 
-vCard += "END:VCARD"
+# TODO: Verifier les inputs
+
+vCard += "N:"+name+";"+surname+";\n\r"
+vCard += "FN:"+surname+" "+name+"\n\r"
+vCard += "TEL;TYPE=cell:(+33)"+tel+"\n\r"
+vCard += "EMAIL:"+email+"\n\r"
+
+vCard += "END:VCARD\n\r"
+
+print("\nGenerated vCard:\n\n")
+print(vCard)
+
+# TODO: exporter/enregistrer dans un fichier
+
 
 
 # vCards example:
